@@ -14,7 +14,6 @@ const userSchema = new mongoose.Schema({
 	monthOfBirth: { type: String, required: true },
 	yearOfBirth: { type: String, required: true },
 	likedSongs: { type: [String], default: [] },
-	
 	playlists: { type: [String], default: [] },
 	isAdmin: { type: Boolean, default: false },
 });

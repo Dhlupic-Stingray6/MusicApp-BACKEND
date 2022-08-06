@@ -24,7 +24,7 @@ router.get("/", async (req,res) => {
 });
 
 //update song
-router.put("/:id", [validObjectId, auth], async (req, res) => {
+router.put("/:id", [validObjectId, admin], async (req, res) => {
     const song = await Song.findByIdAndUpdate(req.params.id, req.body, {new:true})
     res.status(200).send({ data: song, message: "Song is updated"});
 })
@@ -35,7 +35,7 @@ router.delete("/:id", [validObjectId, admin], async(req, res) => {
     res.status(200).send({ message: "Song is deleted"});
 })
 
-//like the song
+//like or unlike the song
 router.put("/like/:id", [validObjectId, auth], async(req, res) => {
     let resMessage = "";
     const song = await Song.findById(req.params.id);
