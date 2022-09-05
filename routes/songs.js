@@ -62,6 +62,7 @@ router.get("/like", auth, async(req, res) => {
     const user = await  User.findById(req.user._id);
     const songs = await Song.find({ _id: user.likedSongs });
     res.status(200).send({ data: songs});
+    console.log(data)
 });
 
 module.exports = router;

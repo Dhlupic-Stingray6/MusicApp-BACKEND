@@ -32,7 +32,7 @@ router.post("/", async (req,res) => {
     newUser.__v = undefined;
 
     res.status(201).send({data: newUser, message: "Account created successfully"})
-
+    console.log(newUser);
 })
 
 //get all users
@@ -51,7 +51,7 @@ router.get("/:id", [validateObjectId, auth], async (req, res) => {
 
 //update user by id
 
-router.put("/:id", [validateObjectId, admin], async (req, res) => {
+router.put("/:id", [validateObjectId, auth], async (req, res) => {
     const user = await User.findByIdAndUpdate(
         req.params.id,
         {$set: req.body},

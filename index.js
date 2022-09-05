@@ -20,7 +20,7 @@ app.use(express.json())
 
 
 
-app.use("/api/users", userRoutes);
+app.use("/api/users", userRoutes );
 app.use("/api/login", authRoutes);
 app.use("/api/songs", songRoutes);
 app.use("/api/playlists", playlistRoutes);

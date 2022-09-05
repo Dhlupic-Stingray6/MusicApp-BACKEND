@@ -66,13 +66,16 @@ router.put("/add-song", auth, async(req, res) => {
 
     const user = await User.findById(req.user._id);
     const playlist = await Playlist.findById(req.body.playlistId);
-
+    
+    
+    
     if(!user._id.equals(playlist.user))
         return res.status(403).send({ message: "You don't have permission to edit this playlist"});
 
     if(playlist.songs.indexOf(req.body.songId) === -1){
         playlist.songs.push(req.body.songId)
-    };
+    }
+
     await playlist.save();
     res.status(200).send({ data: playlist, message: "Added to playlist"})
 })
@@ -107,6 +110,11 @@ router.get("/favorite", auth, async(req, res) => {
     res.status(200).send({data: playlists});
 });
 
+router.get("/random", auth, async (req, res) => {
+	const playlists = await Playlist.aggregate([{ $sample: { size: 10 } }]);
+	res.status(200).send({ data: playlists });
+});
+
 // get playlist by id
 router.get("/:id", [validateObject, auth], async (req, res) => {
 	const playlist = await Playlist.findById(req.params.id);
@@ -135,8 +143,10 @@ router.delete("/:id", [validateObject, auth], async (req, res) => {
 	user.playlists.splice(index, 1);
 	await user.save();
 	await playlist.remove();
-	res.status(200).send({ message: "Playlists deleted" });
+	res.status(200).send({ message: "Playlist deleted" });
 });
+
+
 
 
 
