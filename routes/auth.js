@@ -8,14 +8,14 @@ router.post("/", async(req,res) => {
     });
     if(!user){
         return res.status(400).send({
-            message: "Invalid email or password"
+            message: "Invalid email"
         });
     }
 
     const validPassword = await bcrypt.compare(req.body.password, user.password)
     if(!validPassword){
         return res.status(400).send({
-            message: "Invalid email or password"
+            message: "Invalid password"
         })
     }
 
